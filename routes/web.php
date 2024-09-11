@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthenticationController;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'ExampleController@index');
+Route::get('/login', 'AuthenticationController@index');
+Route::post('/login', 'AuthenticationController@store');
+Route::post('/login', 'AuthenticationController@login');
+Route::get('/dashboard', 'DashboardController@index');
+Route::get('/dashboard/create', 'DashboardController@create');
+Route::post('/dashboard', 'DashboardController@store');
+Route::get('/dashboard/{nrp}/edit', 'DashboardController@edit');
+Route::put('/dashboard/{nrp}', 'DashboardController@update');
+Route::delete('/dashboard/{nrp}', 'DashboardController@destroy');
+
