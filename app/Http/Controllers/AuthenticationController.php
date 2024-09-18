@@ -10,19 +10,22 @@ class AuthenticationController extends Controller
     public function index (){
         return view('login');
     }
+    public function create(){
+        return view('register');
+    }
     public function store(Request $request){
 
         $request->validate([
-            'uname' => 'required|String|max:100|unique:user,Username',
-            'passw' => 'required|String|max:100|unique:user,Password'
+            'uname' => 'required|String|max:100|unique:users,Username',
+            'passw' => 'required|String|min:6|max:100'
         ]);
 
-        $hashpass = hash('sha256', md5($request->passw));
+        $hashedPassword = hash('sha256', md5($request->passw));
 
         $user = new User();
-        $user->insert_user($request->uname, $hashpass);
+        $user->insert_user($request->uname, $hashedPassword);
 
-        return redirect('/login')->with('Status', 'Berhasil Melakukan Register');
+        return redirect('/login')->with('status', 'Berhasil Regristrasi');
     }
     public function login(Request $request){
 
@@ -32,12 +35,15 @@ class AuthenticationController extends Controller
         ]);
 
         $user = new User();
-        $user->get_user_by_uname($request->uname);
+        $result = $user->get_user_by_uname($request->uname);
 
-        if ($user && $user->password === hash('sha256', md5($request->passw))) {
-            return redirect('/dashboard')->with('Status', 'Berhasil Login');
+        if (!empty($result)) {
+            $storedPassword = $result[0]->Password;
+            if ($storedPassword === hash('sha256', md5($request->passw))) {
+                return  redirect('/dashboard')->with('status', 'Berhasil login');
+            }
         }
 
-        return back()->with('Status', 'Gagal Login');
+        return redirect('/login')->with('status', 'Username atau Password salah');
     }
 }

@@ -19,8 +19,9 @@ use Illuminate\Support\Facades\App;
 
 Route::get('/', 'ExampleController@index');
 Route::get('/login', 'AuthenticationController@index');
-Route::post('/login', 'AuthenticationController@store');
 Route::post('/login', 'AuthenticationController@login');
+Route::get('/register/create', 'AuthenticationController@create');
+Route::post('/register', 'AuthenticationController@store');
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/dashboard/create', 'DashboardController@create');
 Route::post('/dashboard', 'DashboardController@store');

@@ -15,14 +15,14 @@
     </head>
     <body style="background-color: #fbf8f8;">
 
-            @if (session ('status'))
-                <div class="alert alert-info" role="alert">{{ session ('status') }}</div>
+            @if (session('status'))
+                <div class="alert alert-success">{{session('status')}}</div>
             @endif
 
-        <div class="card position-absolute top-50 start-50 translate-middle" style="width: 26rem; height: 24rem; box-shadow: 2px 2px 2px 2px #f6f4f4;">
-            <h2 style="text-align: center; margin-top: 2rem;">Login</h2>
+        <div class="card position-absolute top-50 start-50 translate-middle" id="registerCard" style="width: 26rem; height: 24rem; box-shadow: 2px 2px 2px 2px #f6f4f4;">
+            <h2 style="text-align: center; margin-top: 2rem;">Register</h2>
 
-            <form action="{{ url('/login') }}" method="POST" style="margin: 1.5rem;">
+            <form action="{{ url('/register') }}" method="POST" style="margin: 1.5rem;">
                 @csrf
                 <div class="mb-3">
                     <label for="exampleInputText" class="form-label">Username</label>
@@ -31,12 +31,12 @@
                  </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" name="passw" class="form-control" placeholder="Password">
+                    <input type="password" name="passw" class="form-control" value="{{ old('passw') }}" placeholder="Password">
                     @error('passw') <span class="alert alert-danger">{{ $message }}</span> @enderror
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 23rem;">Login</button>
-                <a href="{{ url('/register/create') }}" class="btn btn-secondary" id="registerButton" style="width: 23rem; margin-top: 0.5rem;">Register</a>
+                <button type="submit" class="btn btn-primary" style="width: 23rem; margin-top: 1.7rem;">Submit</button>
             </form>
         </div>
+
     </body>
 </html>
